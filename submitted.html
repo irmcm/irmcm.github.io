@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Menu burada -->
+    <div class="navbar">
+        <a href="index.html">Home</a> <!-- Tekrardan forma dönmeyi sağlamak için -->
+        <a href="about:blank" target="_blank">Categories</a>
+        <a href="about:blank" target="_blank">About</a>
+        <a href="about:blank" target="_blank">Contact</a>
+    </div>
+
+     <!-- Sticky Ads -->
+    <div class="sticky-ad left-ad">
+        <button class="close-btn">X</button>
+        <a href="about:blank" target="_blank">
+        <img src="stickyads.png" alt="Left Ad">
+     </a>
+    </div>
+     <div class="sticky-ad right-ad">
+        <button class="close-btn">X</button>
+        <a href="about:blank" target="_blank">
+        <img src="stickyads.png" alt="Right Ad">
+     </a>
+     </div>
+
+     <div style="margin-top:200px;" class="form-container">
+            <h1> Your registration form has been submitted successfully! </h1>
+     </div>
+
+     <script>
+    
+    // Sticky Ads kapatmak için
+     document.querySelectorAll('.close-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          btn.parentElement.style.display = 'none';
+        });
+      });
+
+     </script>
+</body>
+</html>

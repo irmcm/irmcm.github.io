@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>registration form </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Menu burada -->
+    <div class="navbar">
+        <a href="#" id="home-link">Home</a> <!-- burası aktif sayfamız, tekrar ona yönlendiriliyoruz -->
+        <a href="about:blank" target="_blank">Categories</a>
+        <a href="about:blank" target="_blank">About</a>
+        <a href="about:blank" target="_blank">Contact</a>
+    </div>
+
+     <!-- Sticky Ads -->
+    <div class="sticky-ad left-ad">
+        <button class="close-btn">X</button>
+        <a href="about:blank" target="_blank">
+        <img src="stickyads.png" alt="Left Ad">
+     </a>
+    </div>
+     <div class="sticky-ad right-ad">
+        <button class="close-btn">X</button>
+        <a href="about:blank" target="_blank">
+        <img src="stickyads.png" alt="Right Ad">
+     </a>
+     </div>
+
+
+     <!-- Form kısmı burada -->
+     <div class="form-container">
+        <h2>Registration Form for Workshops</h2>
+
+        <div class="form-group double-input"> 
+            <label for="name" class="name-label">Name</label>
+            <div>
+                <input type="text" id="firstName">
+                <label for="firstName">First Name</label>
+                <small class="error-message" id="firstNameError"></small> <!-- Boş bırakılması durumunda verilecek error -->
+            </div>
+            <div>
+                <input type="text" id="lastName">
+                <label for="lastName">Last Name</label>
+                <small class="error-message" id="lastNameError"></small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="company">Company</label>
+            <select id="companySelect">
+                <option value="" disabled selected>Choose one of the options</option>
+            </select>
+            <small class="error-message" id="companyError"></small>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email">
+            <small class="error-message" id="emailError"></small>
+        </div>
+
+        <div class="form-group double-input">
+            <label for="name" class="name-label">Phone</label>
+            <div>
+                <select id="areaCode">
+                    <option value="" disabled selected>Choose area code</option>
+                </select>
+                <label for="areaCode">Area Code</label>
+                <small class="error-message" id="areaCodeError"></small>
+            </div>
+            <div>
+                <input type="tel" id="phoneNumber">
+                <label for="phoneNumber">Phone Number</label>
+                <small class="error-message" id="phoneNumberError"></small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="workshopSelect">
+                <option value="" disabled selected>Choose one of the options</option>
+            </select>
+            <small class="error-message" id="subjectError"></small>
+        </div>
+
+        <div class="radio-group">
+            <label>Are you a beginner?</label>
+            <input type="radio" id="beginnerYes" name="beginner" value="yes">
+            <label for="beginnerYes" class="inline-label">Yes</label>
+            <input type="radio" id="beginnerNo" name="beginner" value="no">
+            <label for="beginnerNo" class="inline-label">No</label>
+            <small class="error-message" id="beginnerError"></small>
+        </div>
+
+        <button type="submit" id="submitButton" class="register-btn">Register</button>
+        <p id="errorMessage" class="error-message"></p>
+    </div>
+
+
+    <!-- JS Buradan başlıyor -->
+
+      <script>
+
+        // Aktif sayfamıza geri dönmesi için Home tuşunun işlevi
+        document.getElementById("home-link").addEventListener("click", function (e) {
+          e.preventDefault(); 
+          location.reload(); 
+        });
+
+        // Sticky Ads kapatmak için
+        document.querySelectorAll('.close-btn').forEach((btn) => {
+            btn.addEventListener('click', () => {
+              btn.parentElement.style.display = 'none';
+            });
+          });
+
+          
+        // Area Code için fetch
+        fetch('https://run.mocky.io/v3/10d6631a-d3b2-4797-b070-f10cd743e857') 
+        .then(response => response.json())  
+        .then(data => {
+            const areaCodeSelect = document.getElementById('areaCode');
+                    
+             data.areaCodes.forEach(areaCode => {
+                const option = document.createElement('option');
+                option.value = areaCode.code;
+                option.textContent = `${areaCode.code} (${areaCode.country})`;
+                areaCodeSelect.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error("Error fetching data:", error);
+        });
+
+        // Company için fetch
+        fetch('https://run.mocky.io/v3/7102998f-0741-4db0-8953-2d256d0e2a6e') 
+        .then(response => response.json()) 
+        .then(data => {
+            console.log(data);
+            
+            const companySelect = document.getElementById('companySelect');
+
+            data.companies.forEach(company => {
+                const option = document.createElement('option');
+                option.value = company.name;  
+                option.textContent = company.name;  
+                companySelect.appendChild(option);  
+            });
+        })
+        .catch(error => {
+            console.error("Error fetching data:", error); 
+        });
+
+
+        // Workshop için fetch
+        fetch('https://run.mocky.io/v3/9ad3f61d-89b5-4d02-a1d6-54c7b8a8701a')
+        .then(response => response.json()) 
+        .then(data => {
+            console.log(data);
+
+            const workshopSelect = document.getElementById('workshopSelect');
+            
+            data.workshops.forEach(workshop => {
+                const option = document.createElement('option');
+                option.value = workshop.value; 
+                option.textContent = workshop.name;
+                workshopSelect.appendChild(option); 
+            });
+        })
+        .catch(error => {
+            console.error("Error fetching data:", error); 
+        });
+        
+        // Submit butonuna basıldığında tüm boşluklar dolu mu, email ve numara valid mi kontrol sağlanıyor
+        document.getElementById('submitButton').addEventListener('click', function (event) {
+            event.preventDefault(); 
+        
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const areaCode = document.getElementById('areaCode').value.trim();
+            const phoneNumber = document.getElementById('phoneNumber').value.trim();
+            const company = document.getElementById('companySelect').value.trim();
+            const subject = document.getElementById('workshopSelect').value.trim();
+            const beginner = document.querySelector('input[name="beginner"]:checked');
+        
+            // Başta error mesajları yok
+            const errorFields = document.querySelectorAll('.error-message');
+            errorFields.forEach((errorField) => {
+                errorField.style.display = 'none';
+                errorField.textContent = '';
+            });
+        
+            let isValid = true;
+        
+            // Tek tek validation
+            if (!firstName) {
+                const firstNameError = document.getElementById('firstNameError');
+                firstNameError.textContent = 'First name is required.';
+                firstNameError.style.display = 'block';
+                isValid = false;
+            }
+        
+            if (!lastName) {
+                const lastNameError = document.getElementById('lastNameError');
+                lastNameError.textContent = 'Last name is required.';
+                lastNameError.style.display = 'block';
+                isValid = false;
+            }
+        
+            if (!email) {
+                const emailError = document.getElementById('emailError');
+                emailError.textContent = 'Email is required.';
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Format kontrolü
+                if (!emailRegex.test(email)) {
+                    const emailError = document.getElementById('emailError');
+                    emailError.textContent = 'Invalid email format.';
+                    emailError.style.display = 'block';
+                    isValid = false;
+                }
+            }
+        
+            if (!areaCode) {
+                const areaCodeError = document.getElementById('areaCodeError');
+                areaCodeError.textContent = 'Area code is required.';
+                areaCodeError.style.display = 'block';
+                isValid = false;
+            }
+        
+            if (!phoneNumber) {
+                const phoneNumberError = document.getElementById('phoneNumberError');
+                phoneNumberError.textContent = 'Phone number is required.';
+                phoneNumberError.style.display = 'block';
+                isValid = false;
+            } else {
+                const phoneRegex = /^[0-9]{10}$/; // Format kontrolü
+                if (!phoneRegex.test(phoneNumber)) {
+                    const phoneNumberError = document.getElementById('phoneNumberError');
+                    phoneNumberError.textContent = 'Phone number must be 10 digits.';
+                    phoneNumberError.style.display = 'block';
+                    isValid = false;
+                }
+            }
+        
+            if (!company) {
+                const companyError = document.getElementById('companyError');
+                companyError.textContent = 'Please select a company.';
+                companyError.style.display = 'block';
+                isValid = false;
+            }
+        
+            if (!subject) {
+                const subjectError = document.getElementById('subjectError');
+                subjectError.textContent = 'Please select a subject.';
+                subjectError.style.display = 'block';
+                isValid = false;
+            }
+        
+            if (!beginner) {
+                const beginnerError = document.getElementById('beginnerError');
+                beginnerError.textContent = 'Please select if you are a beginner.';
+                beginnerError.style.display = 'block';
+                isValid = false;
+            }
+        
+            // Sorun yoksa onaylama sayfasına yönlendiriliyor
+            if (isValid) {
+                window.location.href = 'submitted.html'; // Ensure success.html exists
+            }
+        });
+
+    </script>
+</body>
+</html>
