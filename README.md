@@ -14,5 +14,3 @@ Submit öncesi validationlar için ayrı ayrı her form tanımını kontrol etti
 
 Ayrıca iyi yapılandırılmış bir stil tanımlaması yapmak adına detaylıca css dosyamı hazırladım. 
 
-Site tek sayfa olduğu için menü ve reklamların sticky olduğu tam anlaşılmayabilir, daha iyi görmek için pencereyi daraltarak bakabilirsiniz. 
-![stickyvalidation](https://github.com/user-attachments/assets/786c77aa-37de-4f08-87bf-e0ab4f26c5a6)
