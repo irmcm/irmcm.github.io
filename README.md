@@ -13,3 +13,6 @@ Fetch kısımlarında derste yaptığımız örnek üzerinden gittim.
 Submit öncesi validationlar için ayrı ayrı her form tanımını kontrol ettim. Boş olmaları durumda üstte tanımladığımız error messageları hepsi için ayrı ayrı olarak tetikleniyor. Email ve telefon numarasında da format kontrolü yapılıyor. Bir sıkıntı yoksa register butonu ile register olunuyor. Bu işlem sonrasında yeni bir sayfaya yönlendiriliyoruz. Bu sayfayı da önceki sayfa şeklinde yaptım, yalnızca onay mesajı bulunuyor. Bu sayfada menüdeki "Home" tuşuna basıldığında tekrardan forma ulaşabiliyoruz. 
 
 Ayrıca iyi yapılandırılmış bir stil tanımlaması yapmak adına detaylıca css dosyamı hazırladım. 
+
+Site tek sayfa olduğu için menü ve reklamların sticky olduğu tam anlaşılmayabilir, daha iyi görmek için pencereyi daraltarak bakabilirsiniz. 
+![stickyvalidation](https://github.com/user-attachments/assets/786c77aa-37de-4f08-87bf-e0ab4f26c5a6)
